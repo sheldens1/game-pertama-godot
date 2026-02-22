@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://c8lrt4j8wi3vn"]
+
+[ext_resource type="Script" uid="uid://jx2lqvk84nha" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cx5g5slesis5v" path="res://musuh.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://s4ud7xskomh" path="res://player.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cngnmge864u04" path="res://hud.tscn" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://c21tywrni2rte" path="res://dodge_the_creeps_2d_assets/ssstik.io_1771763060979.mp3" id="5_7mycd"]
+[ext_resource type="AudioStream" uid="uid://b2cl1uq8aansk" path="res://dodge_the_creeps_2d_assets/art/gameover.wav" id="6_272bh"]
+
+[sub_resource type="Curve2D" id="Curve2D_1bvp3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 479, -4, 0, 0, 0, 0, 478, 715, 0, 0, 0, 0, -3, 713, 0, 0, 0, 0, -2, 0)
+}
+point_count = 5
+
+[node name="main" type="Node" unique_id=1359890912]
+script = ExtResource("1_0xm2m")
+mob_scene = ExtResource("2_1bvp3")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1453116665]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04339002, 0.37729332, 0.6790114, 1)
+
+[node name="player" parent="." unique_id=1198410425 instance=ExtResource("2_h2yge")]
+
+[node name="mobtimer" type="Timer" parent="." unique_id=1999378604]
+wait_time = 0.5
+
+[node name="scoretimer" type="Timer" parent="." unique_id=1139895162]
+
+[node name="starttimer" type="Timer" parent="." unique_id=1946342200]
+wait_time = 2.0
+one_shot = true
+
+[node name="startposition" type="Marker2D" parent="." unique_id=549814588]
+position = Vector2(240, 450)
+
+[node name="mobpath" type="Path2D" parent="." unique_id=1409988013]
+curve = SubResource("Curve2D_1bvp3")
+
+[node name="mobspawnlocation" type="PathFollow2D" parent="mobpath" unique_id=473009869]
+position = Vector2(-2, 0)
+rotation = -0.0083158165
+
+[node name="HUD" parent="." unique_id=126090183 instance=ExtResource("4_1bvp3")]
+
+[node name="music" type="AudioStreamPlayer2D" parent="." unique_id=1338518250]
+stream = ExtResource("5_7mycd")
+
+[node name="mati" type="AudioStreamPlayer2D" parent="." unique_id=1807364191]
+stream = ExtResource("6_272bh")
+
+[connection signal="hit" from="player" to="." method="game_over"]
+[connection signal="timeout" from="mobtimer" to="." method="_on_mobtimer_timeout"]
+[connection signal="timeout" from="scoretimer" to="." method="_on_scoretimer_timeout"]
+[connection signal="timeout" from="starttimer" to="." method="_on_starttimer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]

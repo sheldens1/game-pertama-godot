@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cngnmge864u04"]
+
+[ext_resource type="Script" uid="uid://cpty1nvsgmqsj" path="res://hud.gd" id="1_64ctp"]
+[ext_resource type="FontFile" uid="uid://cdmi5lft50ast" path="res://dodge_the_creeps_2d_assets/fonts/Xolonium-Regular.ttf" id="2_8sq4i"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_64ctp"]
+pressed = true
+keycode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_8sq4i"]
+events = [SubResource("InputEventKey_64ctp")]
+
+[node name="HUD" type="CanvasLayer" unique_id=126090183]
+script = ExtResource("1_64ctp")
+
+[node name="scorelabel" type="Label" parent="." unique_id=402412910]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.5
+offset_right = 22.5
+offset_bottom = 78.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 64
+text = "0"
+vertical_alignment = 1
+
+[node name="pesan" type="Label" parent="." unique_id=573059756]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -39.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 64
+text = "Hindar AVO"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=1051810105]
+offset_left = 133.0
+offset_top = 580.0
+offset_right = 333.0
+offset_bottom = 680.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 64
+shortcut = SubResource("Shortcut_8sq4i")
+text = "Start"
+
+[node name="Timer" type="Timer" parent="." unique_id=1719878134]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="start_game" from="." to="." method="_on_start_game"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

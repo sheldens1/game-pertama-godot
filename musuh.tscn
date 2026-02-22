@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cx5g5slesis5v"]
+
+[ext_resource type="Script" uid="uid://ca31jklyhcjcn" path="res://musuh.gd" id="1_5ark8"]
+[ext_resource type="Texture2D" uid="uid://oqsjbwwlbx2s" path="res://dodge_the_creeps_2d_assets/art/enemySwimming_1.png" id="2_2rkn2"]
+[ext_resource type="Texture2D" uid="uid://kyy6flkdpp8j" path="res://dodge_the_creeps_2d_assets/art/enemySwimming_2.png" id="3_2d1an"]
+[ext_resource type="Texture2D" uid="uid://ck8baf26ub2j5" path="res://dodge_the_creeps_2d_assets/art/enemyWalking_1.png" id="4_6mybf"]
+[ext_resource type="Texture2D" uid="uid://cktmdjd5tnqpq" path="res://dodge_the_creeps_2d_assets/art/enemyWalking_2.png" id="5_x0a8k"]
+[ext_resource type="Texture2D" uid="uid://j3rs7kooxl2f" path="res://dodge_the_creeps_2d_assets/art/enemyFlyingAlt_1.png" id="6_bjvhb"]
+[ext_resource type="Texture2D" uid="uid://b8rnf3fufs1hx" path="res://dodge_the_creeps_2d_assets/art/enemyFlyingAlt_2.png" id="7_b1ubf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vrmxn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2rkn2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2d1an")
+}],
+"loop": true,
+"name": &"berenang",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6mybf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_x0a8k")
+}],
+"loop": true,
+"name": &"jalan",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_bjvhb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_b1ubf")
+}],
+"loop": true,
+"name": &"terbang",
+"speed": 2.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wtwhl"]
+radius = 36.0
+height = 98.0
+
+[node name="musuh" type="RigidBody2D" unique_id=1996916899]
+position = Vector2(109, 63)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_5ark8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=333734947]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_vrmxn")
+animation = &"jalan"
+frame_progress = 0.055118494
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=107094888]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_wtwhl")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=681068583]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
